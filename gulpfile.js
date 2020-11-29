@@ -9,7 +9,7 @@ gulp.task('styles', function (done) {
   'use strict';
   gulp.src('css/**/*.css')
     .pipe(autoprefixer())
-    .pipe(gulp.dest('post/css'));
+    .pipe(gulp.dest('build/css'));
   done();
 });
 
