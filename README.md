@@ -91,4 +91,4 @@ Do not hesitate of opening a GitHub issue telling me that you enjoyed this work.
 
 ---
 
-`Copyright (c) 2020 Oever González, this project is free and open-source under the [MIT](https://opensource.org/licenses/MIT) license`
+> Copyright (c) 2020 Oever González, this project is free and open-source under the [MIT](https://opensource.org/licenses/MIT) license
