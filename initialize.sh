@@ -26,6 +26,7 @@ if [ -z "$NPM" ]; then
   exit 2
 fi
 
+rm -rf package-lock.json node_modules
 $NPM install # This will install all the Node.js dependencies
 if [ $? -eq 0 ]; then
   echo "All dependencies installed successfully."
@@ -40,8 +41,8 @@ if [ -z "$GIT" ]; then
   exit 4
 fi
 
-$GIT add --force package-lock.json
-$GIT commit -m "node: lock the dependencies for the project"
+$GIT add .
+$GIT commit -m "project: initialize the project from the template"
 
 readonly CURL=$(_which curl)
 if [ -z "$CURL" ]; then
@@ -56,7 +57,7 @@ readonly RT='https://raw.githubusercontent.com/microverseinc/readme-template/mas
 $CURL $LC/.hintrc -o .hintrc -s
 $CURL $LC/.stylelintrc.json -o .stylelintrc.json -s
 mv -f README.md README.md.old
-$CURL $LC/README.md -o README.md -s
+$CURL $RT/README.md -o README.md -s
 $CURL https://unpkg.com/reset-css/reset.css -o src/css/reset.css -s -L
 
 echo "Done!"

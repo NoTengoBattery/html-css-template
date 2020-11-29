@@ -1,5 +1,4 @@
-HTML/CSS/JS Project Template
-===
+# HTML/CSS/JS Project Template
 Use this template to initialize your HTML+CSS+JS project (front end). This project template is pre-configured and contains automation scripts that will make your project starting a lot easier.
 
 ## Prerequisites
@@ -67,8 +66,7 @@ For specific use cases, you can change some parameters, regarding what you want 
 
 If everything looks good, you can commit and push.
 
-Environment Variables
-===
+# Environment Variables
 The behavior of the pre-commit task is modified by the usage of environment variables. As you read in the Archlinux Wiki, there are several ways of setting up variables, and with different scopes and persistence. The following variables modify the behavior"
 
 | Variable | Default | Effect |
@@ -80,8 +78,7 @@ The behavior of the pre-commit task is modified by the usage of environment vari
 |`STYLELINT_MATCH_PATTERN`|`**/*.{css,scss}`|This is a pattern that will match any `.css` or `.scss` (pure CSS or SASS) files. This is a [shell globbing](https://mywiki.wooledge.org/glob), which looks like a regular expression but is quite different.|
 |`RUN_LHCI`|`yes`|If `yes`, run the `lhci` (Lighthouse) web auditor in your project.|
 
-Author's notes
-===
+# Author's notes
 Please, take your time to understand what the scripts do, how, when, and why. You don't need to be shell savvy to understand what commands are being executed.
 
 Read the documentation to the Wikis carefully, if you are new to the Bourne shell, you will find them really helpful. This work is in progress, and any feedback is welcome.
@@ -91,5 +88,7 @@ Open a GitHub issue explaining what is wrong. If you have problems with your scr
 
 ## If this work is useful
 Do not hesitate of opening a GitHub issue telling me that you enjoyed this work. Also, do not hesitate to give this repository a nice golden star.
+
+---
 
 `Copyright (c) 2020 Oever González, this project is free and open-source under the [MIT](https://opensource.org/licenses/MIT) license`
