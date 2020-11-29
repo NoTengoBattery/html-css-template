@@ -7,7 +7,7 @@ var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('styles', function (done) {
   'use strict';
-  gulp.src('css/**/*.css')
+  gulp.src('src/css/**/*.css')
     .pipe(autoprefixer())
     .pipe(gulp.dest('build/css'));
   done();
