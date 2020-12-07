@@ -15,6 +15,7 @@
   "homepage": "https://github.com/NoTengoBattery/html-css-template#readme",
   "devDependencies": {
     "@lhci/cli": "*",
+    "@popperjs/core": "*",
     "bootstrap": "*",
     "foundation-sites": "*",
     "gulp": "*",
@@ -26,7 +27,6 @@
     "jquery": "*",
     "less": "*",
     "lighthouse": "*",
-    "popper.js": "*",
     "sass": "*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
