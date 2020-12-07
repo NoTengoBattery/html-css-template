@@ -27,18 +27,19 @@ fi
 # The following environment variables modify the script's behavior
 readonly YES=yes
 readonly NO=no
+CSS_COMPILED=${CSS_COMPILED:-'built'}
+LESS_IGNORE=${LESS_IGNORE:-'_*.*ss'}
+LESS_MATCH=${LESS_MATCH:-'src/**/*.less'}
 RUN_GULP=${RUN_GULP:-$YES}
 RUN_GULP_STYLES=${RUN_GULP_STYLES:-$YES}
 RUN_HINT=${RUN_HINT:-$YES}
-RUN_STYLELINT=${RUN_STYLELINT:-$YES}
-STYLELINT_MATCH_PATTERN=${STYLELINT_MATCH_PATTERN:-'src/**/*.{css,scss,less} !**/{built,build}/**'}
+RUN_LESS=${RUN_LESS:-$YES}
 RUN_LHCI=${RUN_LHCI:-$NO}
 RUN_SASS=${RUN_SASS:-$YES}
-SASS_BUILT=${SASS_BUILT:-'src/built'}
+RUN_STYLELINT=${RUN_STYLELINT:-$YES}
+SASS_IGNORE=${SASS_IGNORE:-'_*.*ss'}
 SASS_SOURCE=${SASS_SOURCE:-'src/**/*.{sass,scss}'}
-RUN_LESS=${RUN_LESS:-$YES}
-LESS_BUILT=${LESS_BUILT:-'src/built'}
-LESS_MATCH=${LESS_MATCH:-'src/**/*.less'}
+STYLELINT_MATCH_PATTERN=${STYLELINT_MATCH_PATTERN:-'src/**/*.{css,scss,less} !**/{built,build}/** !**/reset.*ss'}
 
 function _which {
   if [[ -n "$ZSH_VERSION" ]]; then
@@ -66,9 +67,12 @@ fi
 if [ "x$RUN_SASS" = "x$YES" ]; then
   eval SASS_SRC=( $SASS_SOURCE )
   for src in ${SASS_SRC[@]}; do
-    bname=$(basename "$src")
-    if [ -f "$src" ] && [[ "$bname" != _* ]]; then
-      dst="${SASS_BUILT}/$bname.css"
+    base_name=$(basename "$src")
+    dir_name=$(dirname "$src")
+    filename="${base_name%.*}"
+    extension="${base_name##*.}"
+    if [ -f "$src" ] && [[ "$filename" != _*.$extension ]]; then
+      dst="$(dirname "$dir_name")/${CSS_COMPILED}/${extension}/${filename}.css"
       _print_run "SASS CSS preprocessor" $NPX sass --style=compressed --update "$src" "$dst"
     fi
   done
@@ -77,10 +81,13 @@ fi
 # Run the `less` preprocessor
 if [ "x$RUN_LESS" = "x$YES" ]; then
   eval LESS_SRC=( $LESS_MATCH )
-  for src in "${LESS_SRC[@]}"; do
-    bname=$(basename "$src")
-    if [ -f "$src" ] && [[ "$bname" != _* ]]; then
-      dst="${LESS_BUILT}/$bname.css"
+  for src in ${LESS_SRC[@]}; do
+    base_name=$(basename "$src")
+    dir_name=$(dirname "$src")
+    filename="${base_name%.*}"
+    extension="${base_name##*.}"
+    if [ -f "$src" ] && [[ "$filename" != _*.$extension ]]; then
+      dst="$(dirname "$dir_name")/${CSS_COMPILED}/${extension}/${filename}.css"
       _print_run "LESS CSS preprocessor" $NPX lessc "$src" "$dst"
     fi
   done

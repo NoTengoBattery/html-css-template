@@ -21,6 +21,7 @@
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-clean-css": "*",
+    "gulp-postcss": "*",
     "gulp-purgecss": "*",
     "gulp-watch": "*",
     "hint": "*",

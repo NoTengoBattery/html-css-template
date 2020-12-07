@@ -58,9 +58,10 @@ $CURL $LC/.stylelintrc.json -o .stylelintrc.json -s
 $CURL $LC/.github/workflows/linters.yml -o .github/workflows/linters.yml -s
 mv -f README.md README.md.old
 $CURL $RT/README.md -o README.md -s
-$CURL https://unpkg.com/reset-css/reset.css -o src/css/reset.css -s -L
+$CURL https://unpkg.com/reset-css/less/reset.less -o src/less/reset.less -s -L
 
 find . \( -name '.placeholder' -o -name '.rootholder' \) -a -type f -delete
+$SHELL tasks.sh
 
 $GIT init
 $GIT add .

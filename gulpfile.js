@@ -3,8 +3,9 @@
  */
 
 const gulp = require('gulp');
-const autoprefixer = require('gulp-autoprefixer');
+const autoprefixer = require('autoprefixer');
 const cleancss = require('gulp-clean-css');
+const postcss = require('gulp-postcss');
 const purgecss = require('gulp-purgecss');
 
 gulp.task('styles', function (done) {
@@ -12,11 +13,11 @@ gulp.task('styles', function (done) {
     .pipe(purgecss({
       content: ['src/**/*.html', 'index.html']
     }))
-    .pipe(autoprefixer())
     .pipe(cleancss({
       format: 'beautify',
       level: 2
     }))
+    .pipe(postcss([autoprefixer()]))
     .pipe(gulp.dest('build'));
   done();
 });
