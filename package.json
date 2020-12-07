@@ -15,16 +15,24 @@
   "homepage": "https://github.com/NoTengoBattery/html-css-template#readme",
   "devDependencies": {
     "@lhci/cli": "*",
+    "bootstrap": "*",
+    "foundation-sites": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
+    "gulp-clean-css": "*",
+    "gulp-purgecss": "*",
     "gulp-watch": "*",
     "hint": "*",
+    "jquery": "*",
     "less": "*",
     "lighthouse": "*",
+    "popper.js": "*",
     "sass": "*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "stylelint-csstree-validator": "*",
-    "stylelint-scss": "*"
+    "stylelint-scss": "*",
+    "typescript": "*",
+    "what-input": "*"
   }
 }

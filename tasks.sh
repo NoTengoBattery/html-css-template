@@ -11,6 +11,18 @@ if [ ! -e .git/ ]; then
   echo "Please run this script inside the root folder of a git project."
   exit 1
 fi
+if [[ -n "$ZSH_VERSION" ]]; then
+  setopt extendedglob
+else
+  shopt -s extglob
+  shopt -s globstar
+  if [ $? -ne 0 ]; then
+    echo "Plese use a BASH shell with a version >= 4.0"
+    echo "BASH_VERSION=$BASH_VERSION"
+    exit 1
+  fi
+fi
+  
 
 # The following environment variables modify the script's behavior
 readonly YES=yes
@@ -31,10 +43,8 @@ LESS_MATCH=${LESS_MATCH:-'src/**/*.less'}
 function _which {
   if [[ -n "$ZSH_VERSION" ]]; then
     builtin whence -p "$1"
-    setopt extendedglob
   else
     builtin type -P "$1"
-    shopt -s extglob
   fi
 }
 
@@ -52,14 +62,15 @@ if [ -z "$NPX" ]; then
   exit 2
 fi
 
-clear; clear;
-
 # Run the `sass` preprocessor
 if [ "x$RUN_SASS" = "x$YES" ]; then
   eval SASS_SRC=( $SASS_SOURCE )
-  for src in "${SASS_SRC[@]}"; do
-    dst="${SASS_BUILT}/$(basename "$src").css"
-    _print_run "SASS CSS preprocessor" $NPX sass "$src:$dst"
+  for src in ${SASS_SRC[@]}; do
+    bname=$(basename "$src")
+    if [ -f "$src" ] && [[ "$bname" != _* ]]; then
+      dst="${SASS_BUILT}/$bname.css"
+      _print_run "SASS CSS preprocessor" $NPX sass --style=compressed --update "$src" "$dst"
+    fi
   done
 fi
 
@@ -67,8 +78,11 @@ fi
 if [ "x$RUN_LESS" = "x$YES" ]; then
   eval LESS_SRC=( $LESS_MATCH )
   for src in "${LESS_SRC[@]}"; do
-    dst="${LESS_BUILT}/$(basename "$src").css"
-    _print_run "LESS CSS preprocessor" $NPX lessc "$src" "$dst"
+    bname=$(basename "$src")
+    if [ -f "$src" ] && [[ "$bname" != _* ]]; then
+      dst="${LESS_BUILT}/$bname.css"
+      _print_run "LESS CSS preprocessor" $NPX lessc "$src" "$dst"
+    fi
   done
 fi
 
