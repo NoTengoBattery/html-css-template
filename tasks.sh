@@ -73,7 +73,7 @@ if [ "x$RUN_SASS" = "x$YES" ]; then
     extension="${base_name##*.}"
     if [ -f "$src" ] && [[ "$filename" != _*.$extension ]]; then
       dst="$(dirname "$dir_name")/${CSS_COMPILED}/${extension}/${filename}.css"
-      _print_run "SASS CSS preprocessor" $NPX sass --style=compressed --update "$src" "$dst"
+      _print_run "SASS CSS preprocessor" "$NPX" sass --style=compressed --update "$src" "$dst"
     fi
   done
 fi
@@ -88,28 +88,28 @@ if [ "x$RUN_LESS" = "x$YES" ]; then
     extension="${base_name##*.}"
     if [ -f "$src" ] && [[ "$filename" != _*.$extension ]]; then
       dst="$(dirname "$dir_name")/${CSS_COMPILED}/${extension}/${filename}.css"
-      _print_run "LESS CSS preprocessor" $NPX lessc "$src" "$dst"
+      _print_run "LESS CSS preprocessor" "$NPX" lessc "$src" "$dst"
     fi
   done
 fi
 
 # Run the `stylelint` linter
 if [ "x$RUN_STYLELINT" = "x$YES" ]; then
-  _print_run "Stylelint CSS linter" $NPX stylelint $STYLELINT_MATCH_PATTERN
+  _print_run "Stylelint CSS linter" "$NPX" stylelint $STYLELINT_MATCH_PATTERN
 fi
 
 # Run the gulp tasks
 if [ "x$RUN_GULP" = "x$YES" ]; then
   if [ "x$RUN_GULP_STYLES" = "x$YES" ]; then
-    _print_run "gulp styles task" $NPX gulp styles
+    _print_run "gulp styles task" "$NPX" gulp styles
   fi
 fi
 
 # Run the `hint` linter
 if [ "x$RUN_HINT" = "x$YES" ]; then
-  _print_run "webhint HTML linter" $NPX hint "$PWD"
+  _print_run "webhint HTML linter" "$NPX" hint "$PWD"
 fi
 
 if [ "x$RUN_LHCI" = "x$YES" ]; then
-  _print_run "Lighthouse web auditor" $NPX lhci autorun --collect.staticDistDir="$PWD"
+  _print_run "Lighthouse web auditor" "$NPX" lhci autorun --collect.staticDistDir="$PWD"
 fi

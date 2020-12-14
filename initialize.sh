@@ -26,15 +26,15 @@ if [ -z "$NPM" ]; then
   exit 2
 fi
 
-$NPM install # This will install all the Node.js dependencies
+"$NPM" install # This will install all the Node.js dependencies
 if [ $? -eq 0 ]; then
   echo "All dependencies installed successfully."
 else
   echo "Failed to install all dependencies."
   exit 3
 fi
-$NPM update
-$NPM audit fix
+"$NPM" update
+"$NPM" audit fix
 
 readonly GIT=$(_which git)
 if [ -z "$GIT" ]; then
@@ -53,19 +53,19 @@ fi
 # Grab the configuration files
 readonly LC='https://raw.githubusercontent.com/microverseinc/linters-config/master/html-css'
 readonly RT='https://raw.githubusercontent.com/microverseinc/readme-template/master'
-$CURL $LC/.hintrc -o .hintrc -s
-$CURL $LC/.stylelintrc.json -o .stylelintrc.json -s
-$CURL $LC/.github/workflows/linters.yml -o .github/workflows/linters.yml -s
+"$CURL" $LC/.hintrc -o .hintrc -s
+"$CURL" $LC/.stylelintrc.json -o .stylelintrc.json -s
+"$CURL" $LC/.github/workflows/linters.yml -o .github/workflows/linters.yml -s
 mv -f README.md README.md.old
-$CURL $RT/README.md -o README.md -s
-$CURL https://unpkg.com/reset-css/less/reset.less -o src/less/reset.less -s -L
+"$CURL" $RT/README.md -o README.md -s
+"$CURL" https://unpkg.com/reset-css/less/reset.less -o src/less/reset.less -s -L
 
 find . \( -name '.placeholder' -o -name '.rootholder' \) -a -type f -delete
 $SHELL tasks.sh
 
-$GIT init
-$GIT add .
-$GIT commit -m "project: initialize the project"
+"$GIT" init
+"$GIT" add .
+"$GIT" commit -m "project: initialize the project"
 
 echo "Done!"
 exit 0
